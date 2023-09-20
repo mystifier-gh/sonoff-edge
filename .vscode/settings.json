@@ -9,4 +9,5 @@
     "luahelper.format.keep_simple_control_block_one_line": true,
     "luahelper.format.keep_simple_function_one_line": false,
     "github.gitAuthentication": false,
+    "git.enableCommitSigning": true,
 }
