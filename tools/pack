@@ -1,0 +1,6 @@
+#!/bin/bash
+rm hub.zip
+pushd hub/src
+files=$(find -L . -iname "*.py")
+zip ../../hub.zip $files
+popd

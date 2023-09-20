@@ -1,0 +1,4 @@
+.secrets
+.venv
+tools/smartthings
+__pycache__

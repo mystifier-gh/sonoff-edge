@@ -1,0 +1,9 @@
+[submodule ".deps/SonoffLAN"]
+	path = .deps/SonoffLAN
+	url = https://github.com/AlexxIT/SonoffLAN.git
+[submodule ".deps/lua-lockbox"]
+	path = .deps/lua-lockbox
+	url = https://github.com/rtyle/lua-lockbox.git
+[submodule ".deps/SmartThingsEdgeDrivers"]
+	path = .deps/SmartThingsEdgeDrivers
+	url = https://github.com/SmartThingsCommunity/SmartThingsEdgeDrivers.git

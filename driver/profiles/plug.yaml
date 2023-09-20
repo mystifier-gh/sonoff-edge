@@ -1,0 +1,18 @@
+# sonoff-edge-profile
+name: plug
+components:
+- id: main
+  capabilities:
+  - id: switch
+    version: 1
+  categories:
+  - name: SmartPlug
+preferences:
+  - name: devicekey
+    title: Device key
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ''
+  
+

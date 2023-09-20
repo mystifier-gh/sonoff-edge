@@ -1,0 +1,12 @@
+{
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "terminal.integrated.env.linux": {
+        "PYTHON_KEYRING_BACKEND": "keyring.backends.null.Keyring",
+        "PATH": "${workspaceFolder}/tools:${env:PATH}"
+    },
+    "luahelper.format.keep_simple_control_block_one_line": true,
+    "luahelper.format.keep_simple_function_one_line": false,
+    "github.gitAuthentication": false,
+}

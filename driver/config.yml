@@ -1,0 +1,5 @@
+name: 'ewelink LAN Driver'
+packageKey: 'mystifier.ewelink'
+permissions:
+  lan: {}
+  discovery: {}

@@ -1,0 +1,30 @@
+name: sonoff-bridge.v1
+components:
+- id: main
+  capabilities:
+  - id: refresh
+    version: 1
+  categories:
+  - name: Bridges
+preferences:
+  - name: url
+    title: url
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: pollingInterval
+    title: Polling interval (seconds)
+    preferenceType: integer
+    required: true
+    definition:
+      minimum: 5
+      default: 60
+  - name: offlineThreshold
+    title: Offline threshold (polling rounds)
+    description: Number of polling rounds to wait before marking a device offline.
+    preferenceType: integer
+    required: true
+    definition:
+      minimum: 2
+      default: 5

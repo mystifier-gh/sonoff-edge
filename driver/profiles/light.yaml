@@ -1,0 +1,20 @@
+# sonoff-edge-profile
+name: light
+components:
+- id: main
+  capabilities:
+  - id: switch
+    version: 1
+  - id: switchLevel
+    version: 1
+  categories:
+  - name: Light
+preferences:
+  - name: devicekey
+    title: Device key
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ''
+  
+
