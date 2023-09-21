@@ -28,3 +28,11 @@ preferences:
     definition:
       minimum: 2
       default: 5
+  - name: logmdns
+    title: Log mDNS broadcasts
+    description: Log mDNS broadcasts.
+    preferenceType: boolean
+    required: true
+    definition: 
+      default: true
+  

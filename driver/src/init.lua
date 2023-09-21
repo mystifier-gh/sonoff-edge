@@ -36,14 +36,15 @@ local function poll(driver, bridge, last_seqs, last_seen)
     log.info(driver.NAME, "Started polling")
     log.trace("last_seqs:", utils.stringify_table(last_seqs))
     log.trace("last_seen:", utils.stringify_table(last_seen))
+    local logmdns = bridge.preferences.logmdns or true
     local counter = bridge:get_field(POLLING_COUNTER) or 1
-    local records = api.discover(last_seqs, last_seen, counter)
+    local records = api.discover(last_seqs, last_seen, counter, logmdns)
     for idx, record in ipairs(records) do
         local deviceid = record.txt.id
         local device = driver:device_by_id(deviceid)
         if device ~= nil then
             local devicekey = device:get_field(DEVICE_KEY)
-            local params = api.read_record(record, devicekey)
+            local params = api.read_record(record, devicekey, logmdns)
             if params ~= nil then
                 device:online()
                 update_device_from_params(device, params)

@@ -27,29 +27,36 @@ end
 function command_handlers.switchLevel_setLevel(driver, device, command)
     log.debug(string.format("[%s] calling switchLevel_setLevel", device.device_network_id))
     local level = command.args.level
-    api.send(device.device_network_id, device:get_field(DEVICE_KEY), "dimmable", {
-        brightness = level
-    })
     if level ~= 0 then
+        api.send(device.device_network_id, device:get_field(DEVICE_KEY), "dimmable", {
+            brightness = level
+        })
         device:emit_event(capabilities.switch.switch.on())
         device:emit_event(capabilities.switchLevel.level(level))
     else
+        api.send(device.device_network_id, device:get_field(DEVICE_KEY), "switch", {
+            switch = "off"
+        })
         device:emit_event(capabilities.switch.switch.off())
     end
 
 end
 function command_handlers.UIID44_switchLevel_setLevel(driver, device, command)
-    log.debug(string.format("[%s] calling switchLevel_setLevel", device.device_network_id))
+    log.debug(string.format("[%s] calling UIID44_switchLevel_setLevel", device.device_network_id))
     local level = command.args.level
-    api.send(device.device_network_id, device:get_field(DEVICE_KEY), "dimmable", {
-        brightness = level,
-        mode = 0,
-        switch = "on"
-    })
+
     if level ~= 0 then
+        api.send(device.device_network_id, device:get_field(DEVICE_KEY), "dimmable", {
+            brightness = level,
+            mode = 0,
+            switch = "on"
+        })
         device:emit_event(capabilities.switch.switch.on())
         device:emit_event(capabilities.switchLevel.level(level))
     else
+        api.send(device.device_network_id, device:get_field(DEVICE_KEY), "switch", {
+            switch = "off"
+        })
         device:emit_event(capabilities.switch.switch.off())
     end
 

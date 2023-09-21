@@ -142,10 +142,10 @@ function api.send(deviceid, devicekey, command, params)
     return resp, err
 end
 
-function api.discover(last_seqs, last_seen, counter)
+function api.discover(last_seqs, last_seen, counter, logmdns)
     local records = discover()
     for idx, record in ipairs(records) do
-        -- log.trace(utils.stringify_table(record))
+        if logmdns then log.trace("broadcast:", utils.stringify_table(record)) end
         local deviceid = record.txt.id
         last_seen[deviceid] = counter
         if record.txt.seq == last_seqs[deviceid] then
@@ -157,12 +157,13 @@ function api.discover(last_seqs, last_seen, counter)
 
     return records
 end
-function api.read_record(record, devicekey)
+function api.read_record(record, devicekey, logmdns)
     local deviceid = record.txt.id
     local data = base64.decode(record.txt.data1)
     if record.txt.encrypt then
         if devicekey == nil then return end
         data = decrypt(devicekey, base64.decode(record.txt.iv), data)
+        if logmdns then log.trace("decrypted broadcast:", utils.stringify_table(data)) end
     end
     local success, result = pcall(json.decode, data)
     if not success then

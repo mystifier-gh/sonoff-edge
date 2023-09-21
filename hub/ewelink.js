@@ -51,7 +51,7 @@ async function login(username, password, region) {
     }
     )
     let json = await response.json();
-    console.log(json);
+    //console.log(json);
     if (json.error != 0) return;
     let at = json.data.at
     response = await fetch(
@@ -61,7 +61,7 @@ async function login(username, password, region) {
     }
     )
     json = await response.json();
-    console.log(JSON.stringify(json));
+    console.log(JSON.stringify(json, null, 4));
 }
 
 var arguments = process.argv;
