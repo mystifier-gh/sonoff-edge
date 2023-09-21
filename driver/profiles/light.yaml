@@ -12,9 +12,20 @@ components:
 preferences:
   - name: devicekey
     title: Device key
+    required: true
     preferenceType: string
     definition:
       stringType: text
       default: ''
-  
+  - name: uiid
+    title: eWelink device type
+    preferenceType: enumeration
+    required: true
+    definition:
+      options: 
+        "light": Generic light
+        "1": Single-Channel Plug (uiid 1)
+        "6": Single-Channel Switch (uiid 6)
+        "44": Single Dimmer Light (uiid 44)
+      default: light    
 

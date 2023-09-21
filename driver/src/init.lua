@@ -16,8 +16,11 @@ local POLLING_COUNTER = "polling_counter"
 local DEVICE_KEY = "devicekey"
 local BRIDGE_DNI = "ewelink-vhub"
 
-local profiles = {
+local PROFILES = {
+    ["plug"] = "plug",
+    ["light"] = "light",
     [1] = "uiid1",
+    [6] = "uiid1",
     [44] = "uiid44"
 }
 local function update_device_from_params(device, params)
@@ -55,9 +58,9 @@ local function poll(driver, bridge, last_seqs, last_seen)
                 parent_device_id = bridge.id,
                 device_network_id = deviceid,
                 label = deviceid,
-                profile = record.txt.type,
+                profile = PROFILES[record.txt.type],
                 manufacturer = 'ewelink',
-                model = record.txt.type,
+                model = PROFILES[record.txt.type],
                 vendor_provided_label = deviceid
             }
             log.info(utils.stringify_table(metadata))
@@ -98,11 +101,11 @@ local function create_child_devices(driver, bridge, bridge_netinfo)
         else
             log.info("found", device.label)
             processed_devices[device_info.deviceid] = device.id
-            local profile = profiles[device_info.extra.uiid]
+            local profile = PROFILES[device_info.extra.uiid]
             if profile ~= nil then
                 device:try_update_metadata({
                     profile = profile,
-                    model = tostring(device_info.extra.uiid),
+                    model = profile,
                     vendor_provided_label = device_info.name
                 })
             else
@@ -117,7 +120,7 @@ local function create_child_devices(driver, bridge, bridge_netinfo)
     for deviceid, device_info in pairs(bridge_netinfo) do
         if not processed_devices[deviceid] then
             log.info("Creating", device_info.name)
-            local profile = profiles[device_info.extra.uiid]
+            local profile = PROFILES[device_info.extra.uiid]
             if profile == nil then
                 log.warn("Unknown uiid:", utils.stringify_table(device_info))
             else
@@ -128,7 +131,7 @@ local function create_child_devices(driver, bridge, bridge_netinfo)
                     label = device_info.name,
                     profile = profile,
                     manufacturer = device_info.extra.manufacturer .. " (" .. device_info.extra.model .. ")",
-                    model = tostring(device_info.extra.uiid)
+                    model = profile
                 }
                 if device_info.showBrand then
                     metadata.manufacturer = device_info.brandName .. " (" .. device_info.extra.model .. ")"
@@ -277,7 +280,7 @@ local driver = Driver(DRIVER_NAME, {
     }, {
         NAME = "UIID 44",
         can_handle = function(opts, driver, device, ...)
-            return device.model == "44"
+            return device.model == "uiid44"
         end,
         capability_handlers = {
             [capabilities.switchLevel.ID] = {

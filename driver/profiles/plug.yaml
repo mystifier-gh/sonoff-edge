@@ -14,5 +14,14 @@ preferences:
     definition:
       stringType: text
       default: ''
-  
+  - name: uiid
+    title: eWelink device type
+    preferenceType: enumeration
+    definition:
+      options: 
+        "plug": Generic plug
+        "1": Single-Channel Plug (uiid 1)
+        "6": Single-Channel Switch (uiid 6)
+        "44": Single Dimmer Light (uiid 44)
+      default: plug  
 
