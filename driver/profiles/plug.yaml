@@ -5,6 +5,36 @@ components:
   capabilities:
   - id: switch
     version: 1
+  - id: signalStrength
+    version: 1
+  categories:
+  - name: SmartPlug
+- id: outlet0
+  label: Channel 1
+  capabilities:
+  - id: switch
+    version: 1
+  categories:
+  - name: SmartPlug
+- id: outlet1
+  label: Channel 2
+  capabilities:
+  - id: switch
+    version: 1
+  categories:
+  - name: SmartPlug
+- id: outlet2
+  label: Channel 3
+  capabilities:
+  - id: switch
+    version: 1
+  categories:
+  - name: SmartPlug
+- id: outlet3
+  label: Channel 4
+  capabilities:
+  - id: switch
+    version: 1
   categories:
   - name: SmartPlug
 preferences:
@@ -22,6 +52,9 @@ preferences:
         "plug": Generic plug
         "1": Single-Channel Plug (uiid 1)
         "6": Single-Channel Switch (uiid 6)
-        "44": Single Dimmer Light (uiid 44)
+        "138": Single-Channel Plug Remote (138)
+        "139": Dual-Channel Plug Remote (139)
+        "140": Three-Channel Plug Remote (140)
+        "141": Four-Channel Plug Remote (141)
       default: plug  
 

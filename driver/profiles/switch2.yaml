@@ -1,0 +1,17 @@
+# eWeLink-profile uiid 139
+name: switch2
+components:
+- id: outlet0
+  label: Channel 1
+  capabilities:
+  - id: switch
+    version: 1
+  categories:
+  - name: SmartPlug
+- id: outlet1
+  label: Channel 2
+  capabilities:
+  - id: switch
+    version: 1
+  categories:
+  - name: SmartPlug

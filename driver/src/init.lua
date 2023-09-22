@@ -21,13 +21,39 @@ local PROFILES = {
     ["light"] = "light",
     [1] = "uiid1",
     [6] = "uiid1",
-    [44] = "uiid44"
+    [44] = "uiid44",
+    [138] = "switch1",
+    [139] = "switch2",
+    [140] = "switch3",
+    [141] = "switch4"
+}
+local CHANNELS = {
+    [0] = "outlet0",
+    [1] = "outlet1",
+    [2] = "outlet2",
+    [3] = "outlet3"
 }
 local function update_device_from_params(device, params)
     if not params then return end
     if params.switch then
         if params.switch == "off" then device:emit_event(capabilities.switch.switch.off()) end
         if params.switch == "on" then device:emit_event(capabilities.switch.switch.on()) end
+    end
+    if params.switches then
+        for idx, channel in ipairs(params.switches) do
+            local component = device.profile.components[CHANNELS[channel.outlet]]
+            if channel.switch == "off" then
+                device:emit_component_event(component, capabilities.switch.switch.off())
+            end
+            if channel.switch == "on" then
+                device:emit_component_event(component, capabilities.switch.switch.on())
+            end
+        end
+    end
+    if params.rssi then
+        if (device:supports_capability(capabilities.signalStrength, "main")) then
+            device:emit_event(capabilities.signalStrength.rssi(params.rssi))
+        end
     end
     if params.brightness then
         -- local level = utils.round(params.brightness / 255 * 100)

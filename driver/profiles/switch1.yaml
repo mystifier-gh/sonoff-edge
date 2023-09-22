@@ -1,13 +1,11 @@
-# sonoff-edge-profile
-name: uiid1
+# eWeLink-profile uiid 138
+name: switch1
 components:
-- id: main
+- id: outlet0
+  label: Channel 1
   capabilities:
   - id: switch
     version: 1
-  - id: signalStrength
-    version: 1
   categories:
   - name: SmartPlug
-
 
