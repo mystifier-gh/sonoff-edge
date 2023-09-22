@@ -16,26 +16,49 @@ You will also see the ewelink devices in 30 seconds. But these devices maynot wo
 
 ### Update the devices with eWelink data
 
-There are 2 ways to update that.
+Download script [ewelink.js](https://github.com/mystifier-gh/sonoff-edge/blob/main/hub/ewelink.js)
+
+Ensure node version is v20 or newer. It may run in earlier versions as well.
+```console
+node -v 
+v20.6.1
+```
+then run the script 
+
+```console
+node ewelink.js username password region [port]
+```
+where
+
+```username``` is your username at eWelink.
+
+```password``` is your password at eWelink.
+
+```region``` is your server at eWelink. one of ```us```, ```cn```, ```eu``` or ```as```
+
+```port``` is the local port to listen to. Optional, default to 8003.
+
+You should see a lot of json 
+```json
+{
+    "xxxxxxxxxx": {
+        "name": "Hallway light",
+        "deviceid": "xxxxxxxxxx",
+        "apikey": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx",
+        "extra": {
+            "uiid": 1,
+            "description": "20191112004",
+            "brandId": "5c4c1aee3a7d24c7100be054",
+
+```
+followed by
+```console
+    serving at http://10.0.0.41:8003/
+```
+
+From the above json data, extract the device key and set it in the settings.
 
 * Feed from the server:
-
-    Users run a python server locally on computer to seed this information to driver once. The server can stop after that forever.
-Now we need to feed list of devices, their types and keys. We can download this from ewelink cloud. I have a helper program that can exactly do this.
-
-    To run server download [hub.zip](https://github.com/bogusfocused/sonoff-edge/blob/main/hub.zip) and run
-   
-   ```console
-    python hub.zip -u username -p password --region region --port port
-    ```
-
-    you will see something like this with your ip and port:
-    
-    ```console
-    serving at http://10.0.0.41:8003/
-    press ctrl+C to stop.
-    
-    ```
 
     Open Smartthings app, find the device ```ewelink virtual hub``` , select it and click 3 dots and select ```settings``` . In Url enter the your server URL from above (eg. http://10.0.0.41:8003/ ) and save. You should now see the devices added. 
 
@@ -43,19 +66,7 @@ Now we need to feed list of devices, their types and keys. We can download this 
 
 * Set the device key
 
-    To use js script [ewelink.js](https://github.com/bogusfocused/sonoff-edge/blob/main/hub/ewelink.js)
-
-    Ensure node version is v20 or newer. We use crypto library which is found in v20 versions.
-    ```console
-    node -v 
-    v20.6.1
-    ```
-    then run the script
-    ```console
-    node ewelink.js  "your username" "your password" "your region. one of us, cn,eu or as"
-    ```
-    From the above json data, extract the device key and set it in the settings.
-
+    Extract the device key from the above output and set it on corresponding device
 
 ## To add support for a device
 

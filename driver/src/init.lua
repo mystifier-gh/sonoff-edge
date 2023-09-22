@@ -168,10 +168,9 @@ local function download_bridge_netinfo(driver, device)
         return
     end
     log.info("device.preferences.url=", device.preferences.url)
-    local json = api.download_info(device.preferences.url)
-    if not json then return end
-    local bridge_netinfo = {}
-    for _, d in ipairs(json) do bridge_netinfo[d.deviceid] = d; end
+    local bridge_netinfo = api.download_info(device.preferences.url)
+    log.trace("url returned:", utils.stringify_table(bridge_netinfo))
+    if not bridge_netinfo then return end
     driver.datastore.bridge_netinfo = bridge_netinfo
     create_child_devices(driver, device, bridge_netinfo)
 end

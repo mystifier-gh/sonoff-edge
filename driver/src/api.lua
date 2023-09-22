@@ -67,17 +67,17 @@ local function get_request(method, url)
         log.trace(err)
         return nil, err
     end
-    return Request.new(method, url, sock)
+    return Request.new(method, url, sock):add_header('user_agent', "smartthings"):add_header('host', url.host)
 end
 local function generate_response(request, data)
     local success, err = request:send(json.encode(data))
     if err then
-        log.trace(err)
+        log.warn(err)
         return nil, err
     end
     local resp, err = Response.tcp_source(request.socket)
     if err then
-        log.trace(err)
+        log.warn(err)
         return nil, err
     end
     local body = resp:get_body()
@@ -175,11 +175,18 @@ end
 function api.download_info(url)
     if url then
         local request, err = get_request("GET", url)
-        if err then return end
+        if err then
+            log.warn(err)
+            return
+        end
         local body = generate_response(request)
+        log.warn("body", body)
         if not body then return nil, err end
         local success, json_result = pcall(json.decode, body)
-        if not success then return nil end
+        if not success then
+            log.warn(err)
+            return nil
+        end
         return json_result
     end
 end
